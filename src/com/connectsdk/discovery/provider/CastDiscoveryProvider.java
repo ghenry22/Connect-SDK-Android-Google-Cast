@@ -181,8 +181,7 @@ public class CastDiscoveryProvider implements DiscoveryProvider {
             boolean listUpdateFlag = false;
 
             if (isNew) {
-                foundService = new ServiceDescription(CastService.ID, uuid,
-                        castDevice.getIpAddress().getHostAddress());
+                foundService = new ServiceDescription(CastService.ID, uuid, castDevice.getIpAddress().getHostAddress());
                 foundService.setFriendlyName(castDevice.getFriendlyName());
                 foundService.setModelName(castDevice.getModelName());
                 foundService.setModelNumber(castDevice.getDeviceVersion());
@@ -224,6 +223,14 @@ public class CastDiscoveryProvider implements DiscoveryProvider {
 
             boolean isNew = foundService == null;
             boolean listUpdateFlag = false;
+
+            if (isNew) {
+                foundService = new ServiceDescription(CastService.ID, uuid, castDevice.getIpAddress().getHostAddress());
+                foundService.setFriendlyName(castDevice.getFriendlyName());
+                foundService.setServiceID(CastService.ID);
+                listUpdateFlag = true;
+                isNew = false;
+            }
 
             if (!isNew) {
                 foundService.setIpAddress(castDevice.getIpAddress().getHostAddress());
